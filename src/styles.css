@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+    padding-top: 70px;
+}
+
+.no-border {
+    border: 0;
+    box-shadow: none;
+}
+
+.navbar-default {
+    background-color: "red"
+}
+
+.article-title {
+    font-style: italic;
+}
+
+.article-footer {
+    background-color: #f8f8f8
+}

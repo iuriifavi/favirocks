@@ -1,0 +1,21 @@
+<div class="container-fluid">
+
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">
+      <img class="img-circle" [width]=width [height]=height [alt]=name [src]=image >
+    </a>
+  </div>
+
+  <ul class="nav navbar-nav navbar-left">
+    <li *ngFor="let link of left">
+      <a [routerLink]=link.url>{{link.text}}</a>
+    </li>
+  </ul>
+
+  <ul class="nav navbar-nav navbar-right">
+    <li *ngFor="let link of right">
+      <a [routerLink]=link.url>{{link.text}}</a>
+    </li>
+  </ul>
+
+</div>

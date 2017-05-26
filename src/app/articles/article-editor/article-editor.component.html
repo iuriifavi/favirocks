@@ -1,0 +1,6 @@
+<div class="container">
+    <editable-label [editable]=true class="row article-title no-bolder"
+      [(ngModel)]="article.name" (change)="nameChanged($event)"></editable-label>
+    <tiny-editor [elementId]="'textEditor'" [value]="article.text"></tiny-editor>
+  <div class="row article-footer img-rounded">{{article.author}} - {{creationDate}}</div>
+</div>

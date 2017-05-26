@@ -1,0 +1,11 @@
+<div class="container" *ngIf='article'>
+  <h2 class="row article-title img-rounded">{{article.name}}
+  <a [routerLink]="'edit'"><span class="badge">Edit</span></a>
+  </h2>
+  <div class="panel-body">
+    <span [innerHtml]="article.text">
+    <br>
+    </span>
+  </div>
+  <div class="row article-footer img-rounded">{{article.author}} - {{creationDate}}</div>
+</div>
