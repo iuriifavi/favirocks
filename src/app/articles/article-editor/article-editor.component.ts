@@ -10,7 +10,7 @@ import { Article } from '../article.model'
   templateUrl: './article-editor.component.html'
 })
 export class ArticleEditorComponent implements OnInit {
-  @Input() article;
+  @Input() article: Article;
   
   constructor(protected route: ActivatedRoute, protected articlesService: ArticlesService) {
   }
@@ -20,11 +20,19 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.article = this.route.snapshot.data['article'];
+    this.article = new Article(this.route.snapshot.data['article']);
   }
 
   nameChanged(event) {
-    this.articlesService.updateArticle(this.article).subscribe(article => this.article = article);
+    this.articlesService.updateArticle(this.article).subscribe(article => this.article = new Article (article));
+  }
+
+  authorChanged(event) {
+    this.articlesService.updateArticle(this.article).subscribe(article => this.article = new Article (article));
+  }
+
+  textChanget(event) {
+    this.articlesService.updateArticle(this.article).subscribe(article => this.article = new Article (article));
   }
 
 }

@@ -7,7 +7,8 @@ import {
   ElementRef,
   Renderer,
   forwardRef,
-  EventEmitter
+  EventEmitter,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 
 import {
@@ -31,9 +32,10 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   template: `<div>
       <div *ngIf='!editing' class="fit-horisontal" [(innerHtml)]="value" (click)="onLabelClick()"></div>
       <input *ngIf='editing' [(ngModel)]="value" class="fit-horisontal"
-      (keydown)="onKeyDown($event)" (focusout)="onFocusOut($event)" focus >
+      (keydown)="onKeyDown($event)" (focusout)="onFocusOut($event)" (blur)="onBlur($event)" focus >
     </div>`,
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+    //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class EditableLabelComponent implements OnInit, ControlValueAccessor{

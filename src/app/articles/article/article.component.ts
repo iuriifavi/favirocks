@@ -17,7 +17,7 @@ export class ArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.article = this.route.snapshot.data['article'];
+    this.article = new Article(this.route.snapshot.data['article']);
   }
 
   get creationDate() {

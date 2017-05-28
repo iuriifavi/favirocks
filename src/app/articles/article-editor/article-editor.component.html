@@ -1,6 +1,10 @@
 <div class="container">
     <editable-label [editable]=true class="row article-title no-bolder"
-      [(ngModel)]="article.name" (change)="nameChanged($event)"></editable-label>
-    <tiny-editor [elementId]="'textEditor'" [value]="article.text"></tiny-editor>
-  <div class="row article-footer img-rounded">{{article.author}} - {{creationDate}}</div>
+      [(ngModel)]="article.title" (change)="nameChanged($event)"></editable-label>
+    <tiny-editor [(value)]="article.text" (change)="textChanged($event)"></tiny-editor>
+  <div class="row article-footer img-rounded">
+    <editable-label [editable]=true class="row article-title no-bolder"
+      [(ngModel)]="article.author" (change)="authorChanged($event)"></editable-label>
+      <span>{{creationDate}}</span>
+  </div>
 </div>

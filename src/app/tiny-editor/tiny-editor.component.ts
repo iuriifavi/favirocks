@@ -28,8 +28,9 @@ declare var tinymce: any;
 
 export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnInit {
   @Input() value;
-  @Input() elementId: String;
+  @Input() elementId: String = "tinyEditor"
   @Output() onEditorKeyup = new EventEmitter<any>();
+  @Output() change = new EventEmitter<any>();
 
   editor;
 
@@ -38,8 +39,8 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnInit {
       selector: '#' + this.elementId,
       menubar:false,
       statusbar: false,
-      plugins: ['link', 'paste', 'table', 'textcolor', 'colorpicker', 'anchor', 'code', 'codesample', 'image'],
-      toolbar: ['forecolor link anchor code codesample image'],
+      plugins: ['link', 'paste', 'table', 'textcolor', 'colorpicker', 'anchor', 'code', 'image'],
+      toolbar: ['forecolor link anchor code image'],
       skin_url: 'http://favi.rocks:4200/assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
@@ -47,7 +48,7 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnInit {
           const content = editor.getContent();
           this.onEditorKeyup.emit(content);
         });
-      },
+      }
     });
   }
 
