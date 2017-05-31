@@ -1,15 +1,15 @@
 <div class="container">
-  <h2 class="row article-title img-rounded">
+  <div class="row article-title">
     <a [routerLink]=article._id [id]="article._id">{{article.title}}</a>
   <a [routerLink]="article._id+'/edit'"><span class="badge">Edit</span></a>
-  </h2>
+  </div>
   <div class="panel-body">
     <span [innerHtml]="shortText">
     <br>
     </span>
   </div>
-  <div class="row">
+  <div class="article-footer d-flex justify-content-between">
     <div>{{article.author}}</div>
-    <div class="text-right">{{creationDate}}</div>
+    <div>{{creationDate}}</div>
   </div>
 </div>

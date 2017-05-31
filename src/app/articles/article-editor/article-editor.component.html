@@ -1,10 +1,11 @@
 <div class="container">
-    <editable-label [editable]=true class="row article-title no-bolder"
+    <editable-label editable=true class="row article-title no-bolder"
       [(ngModel)]="article.title" (change)="nameChanged($event)"></editable-label>
     <tiny-editor [(value)]="article.text" (change)="textChanged($event)"></tiny-editor>
-  <div class="row article-footer img-rounded">
-    <editable-label [editable]=true class="row article-title no-bolder"
-      [(ngModel)]="article.author" (change)="authorChanged($event)"></editable-label>
-      <span>{{creationDate}}</span>
+  <div class="row article-footer justify-content-between">
+    <editable-label editable=true class="row no-bolder"
+      [value]="article.author" (change)="authorChanged($event)">
+    </editable-label>
+    <span>{{creationDate}}</span>
   </div>
 </div>

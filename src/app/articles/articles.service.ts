@@ -3,7 +3,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Http } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 
-import { RestClientService } from '../services/rest-client.service'
+import { RestClientService } from '../services'
 import { Article, ArticleInterface } from './article.model'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class ArticlesService {
   restClientService: RestClientService
 
   constructor(protected http: Http) {
-    this.restClientService = new RestClientService(http, "http://favi.rocks:3000/articles")
+    this.restClientService = new RestClientService("http://favi.rocks:3000/articles", http)
   }
 
   getAllArticles(skip?: Number, limit?: Number): Observable<ArticleInterface[]> {
@@ -35,7 +35,7 @@ export class ArticlesResolver implements Resolve<ArticleInterface[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<ArticleInterface[]> {
-    return this.articlesService.getAllArticles(route.params.skip, route.params.limit);
+    return this.articlesService.getAllArticles();
   }
 }
 

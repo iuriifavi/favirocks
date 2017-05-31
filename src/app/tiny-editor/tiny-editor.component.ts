@@ -17,6 +17,7 @@ import 'tinymce/plugins/anchor';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/codesample';
 import 'tinymce/plugins/image';
+import 'tinymce/plugins/save';
 
 
 declare var tinymce: any;

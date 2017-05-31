@@ -1,11 +1,15 @@
 <div class="container" *ngIf='article'>
-  <h2 class="row article-title img-rounded">{{article.title}}
+  <div class="row article-title">
+  <span>{{article.title}}</span>
   <a [routerLink]="'edit'"><span class="badge">Edit</span></a>
-  </h2>
+  </div>
   <div class="panel-body">
     <span [innerHtml]="article.text">
     <br>
     </span>
   </div>
-  <div class="row article-footer img-rounded">{{article.author}} - {{creationDate}}</div>
+  <div class="row article-footer justify-content-between">
+    <span>{{article.author}}</span>
+    <span class="text-right">{{creationDate}}</span>
+  </div>
 </div>

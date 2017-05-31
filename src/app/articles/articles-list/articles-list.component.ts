@@ -8,8 +8,11 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './articles-list.component.html'
 })
 export class ArticlesListComponent implements OnInit {
-
   articles;
+
+  nextPage() {
+    ;
+  }
 
   constructor(protected route: ActivatedRoute, protected articlesService: ArticlesService) {
     this.articles = this.route.snapshot.data['articles'];

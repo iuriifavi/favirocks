@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http'
+import { Http, RequestOptions, URLSearchParams } from '@angular/http'
 
 import 'rxjs'
 
 @Injectable()
 export class RestClientService {
-  constructor(protected http: Http, protected path: string) { }
+  constructor(protected path: string, protected http: Http) { }
 
   protected getPath(path) {
     if (path)
@@ -13,8 +13,19 @@ export class RestClientService {
     return this.path;
   }
 
-  get(path?,params?) {
-    return this.http.get(this.getPath(path), params).map(res => res.json())
+  protected getParams(inputParams?: any): RequestOptions {
+    var params = new URLSearchParams();
+    if (params)
+      for (let prop in inputParams) {
+        if (inputParams.hasOwnProperty(prop)) {
+          params.set(prop, inputParams[prop]);
+        }
+      }
+    return new RequestOptions({ search: params });
+  }
+
+  get(path?: any,params?: any) {
+    return this.http.get(this.getPath(path), this.getParams(params)).map(res => res.json())
   }
 
   post(body, params?) {

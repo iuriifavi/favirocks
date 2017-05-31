@@ -8,7 +8,7 @@ import {
   Renderer,
   forwardRef,
   EventEmitter,
-  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 import {
@@ -28,21 +28,28 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'editable-label',
-  styles: [`.fit-horisontal { width: 100% }`],
-  template: `<div>
-      <div *ngIf='!editing' class="fit-horisontal" [(innerHtml)]="value" (click)="onLabelClick()"></div>
-      <input *ngIf='editing' [(ngModel)]="value" class="fit-horisontal"
-      (keydown)="onKeyDown($event)" (focusout)="onFocusOut($event)" (blur)="onBlur($event)" focus >
-    </div>`,
+  template: `<div><span *ngIf='!editing' (click)="trigerEditor()">{{innerValue}}</span>
+      <input *ngIf='editing' class="form-control" type="text" [(ngModel)]="value"
+      (keydown.enter)="editing=onChange()||false" (focusout)="editing=onChange()||false" (change)="$event.stopPropagation()"
+      (blur)="onBlur()" focus></div>`,
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-    //changeDetection: ChangeDetectionStrategy.OnPush,
+    outputs: ['update:change']
 })
 
 export class EditableLabelComponent implements OnInit, ControlValueAccessor{
   //EditableLabelComponent
+  @Output("change") update = new EventEmitter<any>();
   @Input("value") innerValue: any = '';
-  @Input() editable;
-  editing: boolean;
+  @Input("default") defaultValue: any = '';
+  @Input() editable: boolean = false;
+  editing: boolean = false;
+
+  trigerEditor() {
+      if (this.editable) {
+        this.editing = this.editing?false:true;
+        this.onTouchedCallback();
+      }
+  }
 
   //ControllValueAccessor
   private onTouchedCallback: () => void = noop;
@@ -65,6 +72,7 @@ export class EditableLabelComponent implements OnInit, ControlValueAccessor{
 
   writeValue(value: any) {
       if (value !== this.innerValue) {
+          this.defaultValue = value;
           this.innerValue = value;
       }
   }
@@ -81,27 +89,14 @@ export class EditableLabelComponent implements OnInit, ControlValueAccessor{
   constructor() { }
 
   ngOnInit() {
-    /*this.inputControl.valueChanges
-      .debounceTime(250)
-      .subscribe(() => this.change.emit(event));*/
   }
 
-  onLabelClick() {
-    if (this.editable)
-      this.editing = true;
-  }
-
-  onFocusOut(event) {
-    if (this.editable) {
-      this.editing = false;
-    }
-  }
-
-  onKeyDown(event) {
-    if (event.keyCode === 13) {
-      this.editing = false;
-      return false;
-    }
+  onChange() {
+    if (this.editing)
+        if (this.innerValue !== this.defaultValue) {
+            this.update.emit(this.value);
+            this.defaultValue = this.innerValue;
+        }
   }
 
 }

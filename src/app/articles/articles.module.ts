@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { TinyEditorModule } from '../tiny-editor/tiny-editor.module';
-import { EditableLabelModule } from '../editable-label/editable-label.module';
+import { TinyEditorModule } from '../tiny-editor';
+import { EditableLabelModule } from '../editable-label';
 
 import { ArticlesService, ArticlesResolver, ArticleResolver } from './articles.service';
 
@@ -12,10 +12,10 @@ import { articlesRoutes } from './articles.routes';
 
 import { ArticlesComponent } from './articles.component';
 
-import { ArticleComponent } from './article/article.component';
-import { ArticlesListComponent } from './articles-list/articles-list.component';
-import { ArticlesPreviewComponent } from './articles-preview/articles-preview.component';
-import { ArticleEditorComponent } from './article-editor/article-editor.component';
+import { ArticleComponent } from './article';
+import { ArticlesListComponent } from './articles-list';
+import { ArticlesPreviewComponent } from './article-preview';
+import { ArticleEditorComponent } from './article-editor';
 
 @NgModule({
   imports: [

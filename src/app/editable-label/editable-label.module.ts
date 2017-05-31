@@ -4,12 +4,12 @@ import { FormsModule, FormControl } from '@angular/forms';
 
 import { EditableLabelComponent, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR } from './editable-label.component'
 
-import { FocusDerectiveModule } from '../focus-derective/focus-derective.module';
+import { FocusDirectiveModule } from '../focus-directive';
 
 @NgModule({
   imports: [
     CommonModule,
-    FocusDerectiveModule,
+    FocusDirectiveModule,
     FormsModule
   ],
   exports: [EditableLabelComponent],

@@ -2,49 +2,6 @@ export interface Updatable {
   updated: any;
 }
 
-// export class UpdatableProp<T> {
-//   public parent: Updatable;
-//   public key: string;
-
-//   constructor(protected value: T) {
-//   }
-
-//   get () {
-//     return this.value;
-//   }
-
-//   set (value: T) {
-//     this.value = value;
-//     if (this.parent)
-//       this.parent.updated[this.key] = value;
-//   }
-// }
-
-// export interface ArticleInterface extends Updatable {
-//   _id?: UpdatableProp<string>
-//   author?: UpdatableProp<string>
-//   title?: UpdatableProp<string>
-//   completed?: UpdatableProp<boolean>
-//   published?: UpdatableProp<boolean>
-//   text?: UpdatableProp<string>
-//   created_at?: UpdatableProp<string>
-//   updated_at?: UpdatableProp<string>
-// };
-
-// export class Article implements ArticleInterface{
-//   constructor(protected internal: ArticleInterface, public updated: any = {}) {
-//   }
-
-//   _id?: UpdatableProp<string>
-//   author?: UpdatableProp<string>
-//   title?: UpdatableProp<string>
-//   completed?: UpdatableProp<boolean>
-//   published?: UpdatableProp<boolean>
-//   text?: UpdatableProp<string>
-//   created_at?: UpdatableProp<string>
-//   updated_at?: UpdatableProp<string>
-// }
-
 export interface ArticleInterface extends Updatable {
   _id?: string
   author?: string
@@ -78,24 +35,3 @@ export class Article implements ArticleInterface {
   get created_at(): string { return this.internal.created_at; }
   get updated_at(): string { return this.internal.updated_at; }
 }
-
-/*
-function updatable<T, K>(obj: T, key: K) {
-    obj["__proto__"]["get " + key] = () => this.internal[key];
-    obj["__proto__"]["set " + key] = (value) => { this.updated[key] = value; this.internal[key] = value; };
-}
-
-export class Article implements ArticleInterface{
-  constructor(public internal: ArticleInterface, public updated: any = {}) {
-    updatable(this, "_id");
-    updatable(this, "author");
-    updatable(this, "title");
-    updatable(this, "completed");
-    updatable(this, "published");
-    updatable(this, "text");
-    updatable(this, "created_at");
-    updatable(this, "updated_at");
-
-    console.log(this);
-  }
-}*/

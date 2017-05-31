@@ -6,8 +6,8 @@ import { Article } from '../article.model'
 import { ArticlesService } from '../articles.service';
 
 @Component({
-  selector: 'articles-preview',
-  templateUrl: './articles-preview.component.html'
+  selector: 'article-preview',
+  templateUrl: './article-preview.component.html'
 })
 
 export class ArticlesPreviewComponent implements OnInit {
@@ -25,7 +25,7 @@ export class ArticlesPreviewComponent implements OnInit {
 
   get shortText() {
     if (this.article.text)
-      return this.article.text.split('<br>').slice(0,1).join('<br>') + "<br>...";
+      return this.article.text.split('<hr>').slice(0,1).join('<br>') + "<br>...";
     else
       return ""
   }

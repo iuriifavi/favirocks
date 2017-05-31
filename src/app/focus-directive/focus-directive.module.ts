@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Directive, ElementRef, Renderer } from '@angular/core';
+import { Directive, ElementRef, Renderer, ChangeDetectorRef } from '@angular/core';
 
 @Directive({ selector:'[focus]'})
 export class FocusDirective{
@@ -22,4 +22,4 @@ export class FocusDirective{
   declarations: [FocusDirective]
 })
 
-export class FocusDerectiveModule { }
+export class FocusDirectiveModule { }

@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { ArticlesModule } from './articles/articles.module';
-import { TinyEditorModule } from './tiny-editor/tiny-editor.module';
-import { FocusDerectiveModule } from './focus-derective/focus-derective.module';
+import { ArticlesModule } from './articles';
+import { TinyEditorModule } from './tiny-editor';
+import { FocusDirectiveModule } from './focus-directive';
+import { OutsideClickDirectiveModule } from './outside-click-directive';
 
 import { routes } from './app.routes';
 
 import { AppComponent } from './app.component';
 
-import { TopBarComponent } from './top-bar/top-bar.component';
+import { TopBarComponent } from './top-bar';
 import { YoutubeWrapperComponent } from './youtube-wrapper/youtube-wrapper.component';
 import { AboutComponent } from './about/about.component';
-import { GapiService } from './services/gapi.service';
-import { RestClientService } from './services/rest-client.service';
+import { RestClientService, GapiService } from './services';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { RestClientService } from './services/rest-client.service';
     HttpModule,
     ArticlesModule,
     TinyEditorModule,
-    FocusDerectiveModule,
+    FocusDirectiveModule,
+    OutsideClickDirectiveModule,
   ],
   providers: [GapiService, RestClientService],
   bootstrap: [AppComponent]

@@ -1,21 +1,20 @@
 <div class="container-fluid">
 
   <div class="navbar-header">
+    <button #btn type="button" class="navbar-toggle hidden-sm-up" (click)="collapseButtonClick($event); btn.blur()" (outsideClick)="outsideClick($event)" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+    </button>
     <a class="navbar-brand" href="#">
-      <img class="img-circle" [width]=width [height]=height [alt]=name [src]=image >
+      <span>{{brand}}</span>
     </a>
   </div>
-
-  <ul class="nav navbar-nav navbar-left">
-    <li *ngFor="let link of left">
-      <a [routerLink]=link.url>{{link.text}}</a>
-    </li>
-  </ul>
-
-  <ul class="nav navbar-nav navbar-right">
-    <li *ngFor="let link of right">
-      <a [routerLink]=link.url>{{link.text}}</a>
-    </li>
-  </ul>
-
+  <div class="collapse navbar-collapse" #navbar [(attr.aria-expanded)]="!isCollapsed" [ngClass]="{collapse: isCollapsed}">
+    <ul class="nav navbar-nav" >
+      <li *ngFor="let link of left">
+        <a [routerLink]=link.url >{{link.text}}</a>
+      </li>
+    </ul>
+  </div>
 </div>
