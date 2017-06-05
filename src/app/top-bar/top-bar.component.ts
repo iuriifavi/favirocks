@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { routes } from '../app.routes'
 
@@ -7,11 +8,15 @@ import * as jQuery from 'jquery';
 @Component({
   selector: 'nav',
   templateUrl: './top-bar.component.html',
-  host: {"class": "navbar navbar-default navbar-fixed-top"}
+  host: {"class": "navbar navbar-default navbar-fixed-top"},
 })
 
 export class TopBarComponent{
   isCollapsed: boolean = true
+
+  constructor() {
+
+  }
 
   left = routes.map( x => {
     return { url: x.path, text: x.component.name };
