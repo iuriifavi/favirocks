@@ -38,10 +38,11 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 export class EditableLabelComponent implements OnInit, ControlValueAccessor{
   //EditableLabelComponent
-  @Output("change") update = new EventEmitter<any>();
   @Input("value") innerValue: any = '';
   @Input("default") defaultValue: any = '';
   @Input() editable: boolean = false;
+  @Output("change") update = new EventEmitter<any>();
+  
   editing: boolean = false;
 
   trigerEditor() {
