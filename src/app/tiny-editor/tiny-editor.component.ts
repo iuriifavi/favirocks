@@ -2,11 +2,23 @@ import {
   Component,
   OnInit,
   OnDestroy,
+  OnChanges,
   AfterViewInit,
+  ElementRef,
+  Renderer,
   EventEmitter,
   Input,
-  Output
+  Output,
+  forwardRef,
+  ChangeDetectorRef,
+  ViewChild
 } from '@angular/core';
+
+import {
+  NgModel,
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor
+} from '@angular/forms'
 
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
@@ -19,26 +31,84 @@ import 'tinymce/plugins/codesample';
 import 'tinymce/plugins/image';
 import 'tinymce/plugins/save';
 
-
 declare var tinymce: any;
+
+const noop = () => {
+};
+
+export const MCE_CONTROL_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TinyEditorComponent),
+    multi: true
+};
 
 @Component({
   selector: 'tiny-editor',
-  template: `<textarea id="{{elementId}}" (onEditorContentChange)="keyupHandle($event)" [value]="value||''"></textarea>`
+  template: `<div #target (outsideClick)="outsideClick($event)"
+            [innerHTML]="value">
+            </div>`,
+  providers: [MCE_CONTROL_VALUE_ACCESSOR],
+  outputs: ['update:change']
 })
 
-export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnInit {
-  @Input() value;
-  @Input() elementId: String = "tinyEditor"
-  @Output() onEditorKeyup = new EventEmitter<any>();
-  @Output() change = new EventEmitter<any>();
+export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
+  @Input("value") innerValue: any = '';
+  @Input("default") defaultValue: any = '';
 
-  editor;
+  @Output() onEditorKeyup = new EventEmitter<any>();
+  @Output("change") change = new EventEmitter<any>();
+
+  @ViewChild('target') target:ElementRef;
+
+  protected editor: any;
+
+  get inner(): any {
+    return "123";
+  }
+
+  set inner(value) {
+    console.log(value);
+  }
+
+  //ControllValueAccessor
+  private onTouchedCallback: () => void = noop;
+  private onChangeCallback: (_: any) => void = noop;
+
+  get value(): any {
+      return this.innerValue;
+  };
+
+  set value(v: any) {
+      if (v !== this.innerValue) {
+          this.innerValue = v;
+          this.onChangeCallback(v);
+      }
+  }
+
+  onBlur() {
+      this.onTouchedCallback();
+  }
+
+  writeValue(value: any) {
+      if (value !== this.innerValue) {
+          this.defaultValue = value;
+          this.innerValue = value;
+      }
+  }
+
+  registerOnChange(fn: any) {
+      this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any) {
+      this.onTouchedCallback = fn;
+  }
 
   ngAfterViewInit() {
     tinymce.init({
-      selector: '#' + this.elementId,
+      target: this.target.nativeElement,
       menubar:false,
+      inline:true,
       statusbar: false,
       plugins: ['link', 'paste', 'table', 'textcolor', 'colorpicker', 'anchor', 'code', 'image'],
       toolbar: ['forecolor link anchor code image'],
@@ -57,5 +127,12 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnInit {
     tinymce.remove(this.editor);
   }
 
-  ngOnInit() {}
+  ngOnChanges() {
+    console.log("sdad");
+  }
+
+  outsideClick(event) {
+    this.value = this.value;
+    this.change.emit(this.value);
+  }
 }

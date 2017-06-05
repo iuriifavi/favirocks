@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { TinyEditorComponent } from './tiny-editor.component';
+import { TinyEditorComponent, MCE_CONTROL_VALUE_ACCESSOR } from './tiny-editor.component';
+
+import { OutsideClickDirectiveModule } from '../outside-click-directive';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    OutsideClickDirectiveModule
   ],
-  exports: [
-    TinyEditorComponent
-  ],
+  exports: [ TinyEditorComponent ],
   declarations: [ TinyEditorComponent ],
-  bootstrap: [ TinyEditorComponent ]
+  schemas: [MCE_CONTROL_VALUE_ACCESSOR]
 })
 
 export class TinyEditorModule { }
