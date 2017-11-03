@@ -8,8 +8,8 @@
     <br>
     </span>
   </div>
-  <div class="row article-footer justify-content-between">
-    <span>{{article.author}}</span>
-    <span class="text-right">{{creationDate}}</span>
+  <div class="article-footer row">
+    <div class="col-md-8 col-xs-8">{{article.author}}</div>
+    <div class="col-md-4 col-xs-4">{{article.created_at | date}}</div>
   </div>
 </div>

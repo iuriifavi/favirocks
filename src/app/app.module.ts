@@ -14,6 +14,7 @@ import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { TopBarComponent } from './top-bar';
+import { TiltPanSurfaceModule } from './tilt-pan-surface';
 import { YoutubeWrapperComponent } from './youtube-wrapper/youtube-wrapper.component';
 import { AboutComponent } from './about/about.component';
 import { RestClientService, GapiService } from './services';
@@ -32,6 +33,7 @@ import { RestClientService, GapiService } from './services';
     HttpModule,
     ArticlesModule,
     TinyEditorModule,
+    TiltPanSurfaceModule,
     FocusDirectiveModule,
     OutsideClickDirectiveModule,
   ],

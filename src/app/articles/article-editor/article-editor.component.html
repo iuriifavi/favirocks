@@ -1,11 +1,11 @@
 <div class="container">
-    <editable-label editable=true class="row article-title no-bolder"
+  <editable-label editable=true class="row article-title no-bolder"
       [(ngModel)]="article.title" (change)="nameChanged($event)"></editable-label>
-    <tiny-editor [(value)]="article.text" (change)="textChanged($event)"></tiny-editor>
-  <div class="row article-footer justify-content-between">
-    <editable-label editable=true class="row no-bolder"
-      [value]="article.author" (change)="authorChanged($event)">
+    <tiny-editor [(ngModel)]="article.text" (change)="textChanged($event)" class="panel-body"></tiny-editor>
+  <div class="row article-footer">
+    <editable-label editable=true class="no-bolder col-xs-8 col-md-8"
+      [(ngModel)]="article.author" (change)="authorChanged($event)">
     </editable-label>
-    <span>{{creationDate}}</span>
+    <div class="col-xs-4 col-md-4">{{article.created_at | date}}</div>
   </div>
 </div>

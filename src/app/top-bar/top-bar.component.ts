@@ -3,8 +3,6 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { routes } from '../app.routes'
 
-import * as jQuery from 'jquery';
-
 @Component({
   selector: 'nav',
   templateUrl: './top-bar.component.html',

@@ -2,4 +2,14 @@
   <span *ngFor="let line of text.split('\n')">
   {{line}}
 </span>
+<div style="overflow: hidden; background-color:black;">
+  <tilt-pan-surface [interactive]=true [limitX]="-20" [limitY]="20" [defaultRotation]="'1.9 0'">
+    <div style="perspective: 200px">
+      <img src="assets/wow.png" width="50%" height="50%" style="position: fixed; left:25%; top:25%; z-index:1; transform: translateZ(100px)">
+      <video autoplay loop width="100%" style="transform: translateZ(-1000);">
+          <source src="http://themenate.com/eastern/assets/plugins/rs-plugin/assets/videos/Broadway.mp4" type="video/mp4">
+      </video>
+    </div>
+  </tilt-pan-surface>
+</div>
 </div>

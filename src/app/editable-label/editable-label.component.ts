@@ -28,10 +28,13 @@ export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'editable-label',
-  template: `<div><span *ngIf='!editing' (click)="trigerEditor()">{{innerValue}}</span>
-      <input *ngIf='editing' class="form-control" type="text" [(ngModel)]="value"
-      (keydown.enter)="editing=onChange()||false" (focusout)="editing=onChange()||false" (change)="$event.stopPropagation()"
-      (blur)="onBlur()" focus></div>`,
+  template: `
+    <div [ngSwitch]="editing">
+        <span *ngSwitchCase='false' (click)="trigerEditor()">{{innerValue}}</span>
+        <input *ngSwitchCase='true' class="form-control" type="text" [(ngModel)]="value"
+        (keydown.enter)="editing=onChange()||false" (focusout)="editing=onChange()||false" (change)="$event.stopPropagation()"
+        (blur)="onBlur()" focus>
+    </div>`,
     providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
     outputs: ['update:change']
 })

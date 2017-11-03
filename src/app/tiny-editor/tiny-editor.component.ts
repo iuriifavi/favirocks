@@ -44,9 +44,11 @@ export const MCE_CONTROL_VALUE_ACCESSOR: any = {
 
 @Component({
   selector: 'tiny-editor',
-  template: `<div #target (outsideClick)="outsideClick($event)"
-            [innerHTML]="value">
-            </div>`,
+  template: `
+  <div (outsideClick)="outsideClick($event)" (change)="outsideClick($event)">
+    <div #target innerHTML="{{value}}">
+    </div>
+  </div>`,
   providers: [MCE_CONTROL_VALUE_ACCESSOR],
   outputs: ['update:change']
 })
@@ -56,19 +58,12 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges,
   @Input("default") defaultValue: any = '';
 
   @Output() onEditorKeyup = new EventEmitter<any>();
-  @Output("change") change = new EventEmitter<any>();
+  @Output("change") update = new EventEmitter<any>();
 
   @ViewChild('target') target:ElementRef;
 
+  protected replaced: any;
   protected editor: any;
-
-  get inner(): any {
-    return "123";
-  }
-
-  set inner(value) {
-    console.log(value);
-  }
 
   //ControllValueAccessor
   private onTouchedCallback: () => void = noop;
@@ -76,7 +71,7 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges,
 
   get value(): any {
       return this.innerValue;
-  };
+  }
 
   set value(v: any) {
       if (v !== this.innerValue) {
@@ -87,6 +82,7 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges,
 
   onBlur() {
       this.onTouchedCallback();
+      console.log("blur");
   }
 
   writeValue(value: any) {
@@ -115,10 +111,32 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges,
       skin_url: 'http://favi.rocks:4200/assets/skins/lightgray',
       setup: editor => {
         this.editor = editor;
-        editor.on('keyup', () => {
-          const content = editor.getContent();
-          this.onEditorKeyup.emit(content);
+
+        editor.on('blur', () => {
+          this.onBlur();
         });
+
+        editor.on('change', (e) => {
+          this.value = this.editor.getContent();
+          this.update.emit(this.innerValue);
+        });
+
+        editor.on('SetContent', function (e) {
+          console.log("S=", e.content);
+        });
+
+        editor.on('GetContent', function (e) {
+          console.log("G=",e.content);
+        });
+
+        /*editor.on('keyup', () => {
+          let content = editor.getContent();
+          if (content != this.innerValue) {
+            this.innerValue = content;
+            this.onChangeCallback(content);
+          }
+          this.onEditorKeyup.emit(content);
+        });*/
       }
     });
   }
@@ -128,11 +146,11 @@ export class TinyEditorComponent implements AfterViewInit, OnDestroy, OnChanges,
   }
 
   ngOnChanges() {
-    console.log("sdad");
   }
 
   outsideClick(event) {
-    this.value = this.value;
-    this.change.emit(this.value);
+    this.value = this.editor.getContent();
+    this.update.emit(this.innerValue);
+    this.onTouchedCallback();
   }
 }

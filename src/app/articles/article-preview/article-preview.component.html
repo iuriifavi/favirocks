@@ -1,4 +1,5 @@
 <div class="container">
+  <parallax image="https://media-cdn.tripadvisor.com/media/photo-s/0e/9a/e3/1d/freedom-tower1.jpg" scrollSpeed="0.1">
   <div class="row article-title">
     <a [routerLink]=article._id [id]="article._id">{{article.title}}</a>
   <a [routerLink]="article._id+'/edit'"><span class="badge">Edit</span></a>
@@ -8,8 +9,9 @@
     <br>
     </span>
   </div>
-  <div class="article-footer d-flex justify-content-between">
-    <div>{{article.author}}</div>
-    <div>{{creationDate}}</div>
+  <div class="article-footer row">
+    <div class="col-md-8 col-xs-8">{{article.author}}</div>
+    <div class="col-md-4 col-xs-4">{{article.created_at | date}}</div>
   </div>
+  </parallax>
 </div>

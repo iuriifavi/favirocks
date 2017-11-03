@@ -18,7 +18,7 @@ import { Component, OnInit, Input, ViewChild} from '@angular/core';
     background-attachment: fixed;
   }
   `],
-  template: `<div #parallax [ngClass]="parallaxClass" (scrollDetector)="this.onScroll($event)" [style.backgroundImage]="backgroundImage"><ng-content></ng-content></div>`,
+  template: `<div #parallax [ngClass]="parallaxClass" (scrollDetector)="this.onScroll($event)" [style.backgroundImage]="backgroundImage" [style.backgroundAttachment]="fixed?'fixed':'scrol'"><ng-content></ng-content></div>`,
 })
 
 export class ParallaxComponent implements OnInit {
@@ -43,7 +43,8 @@ export class ParallaxComponent implements OnInit {
       if (from > windowHeight) return;
 
     if (this.scrollSpeed) {
-      let elBackgrounPos = "50% " + (-windowYOffset * this.scrollSpeed) + "px";
+      console.log(this.scrollSpeed);
+      let elBackgrounPos = "50% " + (windowYOffset * this.scrollSpeed) + "px";
       this.div.nativeElement.style.backgroundPosition = elBackgrounPos;
     } else {
       let center = (from + to) / 2;

@@ -19,10 +19,6 @@ export class ArticlesPreviewComponent implements OnInit {
   ngOnInit() {
   }
 
-  get creationDate() {
-      return new Date(this.article.created_at).toDateString();
-  }
-
   get shortText() {
     if (this.article.text)
       return this.article.text.split('<hr>').slice(0,1).join('<br>') + "<br>...";

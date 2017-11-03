@@ -16,6 +16,8 @@ import { ArticleComponent } from './article';
 import { ArticlesListComponent } from './articles-list';
 import { ArticlesPreviewComponent } from './article-preview';
 import { ArticleEditorComponent } from './article-editor';
+import { ParallaxModule } from '../parallax';
+import { TiltPanSurfaceModule } from '../tilt-pan-surface';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import { ArticleEditorComponent } from './article-editor';
     TinyEditorModule,
     EditableLabelModule,
     FormsModule,
+    ParallaxModule,
+    TiltPanSurfaceModule,
     RouterModule.forChild(articlesRoutes)
   ],
   exports: [

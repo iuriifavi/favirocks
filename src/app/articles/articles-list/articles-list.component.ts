@@ -7,18 +7,11 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-articles-list',
   templateUrl: './articles-list.component.html'
 })
-export class ArticlesListComponent implements OnInit {
+export class ArticlesListComponent {
   articles;
-
-  nextPage() {
-    ;
-  }
 
   constructor(protected route: ActivatedRoute, protected articlesService: ArticlesService) {
     this.articles = this.route.snapshot.data['articles'];
-  }
-
-  ngOnInit() {
   }
 
 }

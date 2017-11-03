@@ -12,18 +12,20 @@ export class Pos {
   public x: number;
   public y: number;
 
-  constructor(xOrString?: string|number, y?: number) {
-    console.log(xOrString, y);
-    if (!xOrString) { this.x = 0; this.y = 0;}
-    else {
-      if (y) {
-        this.x = (xOrString as number);
-        this.y = y;
-      } else {
-        let xy = (xOrString as string).split(' ').map(Number);
+  constructor(first?: string|number|any, y?: number) {
+    switch(typeof first) {
+      case "string":
+        let xy = (first as string).split(' ').map(Number);
         this.x = xy[0];
         this.y = xy[1];
-      }
+        break;
+      case "number":
+        this.x = (first as number);
+        this.y = y;
+        break;
+      default:
+        this.x = 0;
+        this.y = 0;
     }
   }
   toString(): string { if (this.x == 0 && this.x == 0) return "0"; return "x:" + this.x + " y:" + this.y; }
@@ -49,8 +51,16 @@ export class TiltPanSurfaceComponent implements OnInit, AfterViewInit {
   @Input() limitX: any = 10;
   @Input() limitY: any = 10;
   @Input() perspective: any = 500;
-  @Input("defaultRotation") defaultPoint: Pos = new Pos();
+  @Input("defaultRotation") set defaultRotation(val) {
+    if (val instanceof Pos)
+      this.defaultPoint = val;
+    else
+      this.defaultPoint = new Pos(val);
+  }
+
   @ViewChild("targetDiv") targetDiv:any;
+
+  defaultPoint: Pos = new Pos();
 
   targetPoint: Pos;
 
@@ -86,8 +96,6 @@ export class TiltPanSurfaceComponent implements OnInit, AfterViewInit {
                     -sy, sx, cx * cy, 0,
                     0, 0, 0, 1];
       return "perspective(" + this.perspective + "px) matrix3d(" + matrix.join(',') + ")";
-
-      //return "perspective(" + this.perspective + "px) rotateY(" + rY + "deg) rotateX(" + rX + "deg)";
     }
     return "";
   }

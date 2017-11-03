@@ -11,6 +11,7 @@ import { Article } from '../article.model'
 })
 export class ArticleEditorComponent implements OnInit {
   @Input() article: Article;
+  color: string = "red";
   
   constructor(protected route: ActivatedRoute, protected articlesService: ArticlesService) {
   }
@@ -28,10 +29,12 @@ export class ArticleEditorComponent implements OnInit {
   }
 
   authorChanged(event) {
+    console.log(this.article.updated);
     this.articlesService.updateArticle(this.article).subscribe(article => this.article = new Article (article));
   }
 
-  textChanget(event) {
+  textChanged(event) {
+    console.log(event);
     this.articlesService.updateArticle(this.article).subscribe(article => this.article = new Article (article));
   }
 

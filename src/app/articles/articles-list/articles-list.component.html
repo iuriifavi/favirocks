@@ -1,2 +1,4 @@
 <h1>Articles</h1>
-<article-preview *ngFor="let article of articles" [article]="article" ></article-preview>
+<div *ngFor="let article of articles">
+<article-preview [article]="article"></article-preview>
+</div>

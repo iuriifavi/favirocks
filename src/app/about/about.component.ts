@@ -10,6 +10,7 @@ export class AboutComponent implements OnInit {
   "It's on unoficial blog fill free to comment for any posts.",
   "Don't miss to subscribe ;)"
   ].join("\n");
+
   constructor() { console.log("123") }
 
   ngOnInit() {
